@@ -11,7 +11,7 @@ function copyToClipboard() {
 document.addEventListener('DOMContentLoaded', () => {
     // Connect to the Socket.IO server
     // IMPORTANT: Replace 'http://localhost:3000' with your actual server URL if different
-    const socket = io('http://localhost:3000', {
+    const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {
         withCredentials: true,
         extraHeaders: {
             "content-type": "abcd"

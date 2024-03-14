@@ -1,13 +1,17 @@
 {
-  "name": "lwtswork",
+  "name": "getmework",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Google LLC",
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.3",
