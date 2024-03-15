@@ -1,7 +1,7 @@
 
 let audioPlayer;
 function initAudioPlayer() {
-    audioPlayer = new Audio('audio/work.mp3');
+    audioPlayer = new Audio('audio/work.m4a');
 }
 function playSound() {
     if (!audioPlayer) {
