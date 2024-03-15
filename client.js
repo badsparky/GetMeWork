@@ -1,26 +1,7 @@
-let audioContext;
-let audioBuffer;
-
-function initAudioContext() {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    fetch('audio/work.mp3')
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-        .then(decodedAudioData => {
-            audioBuffer = decodedAudioData;
-        });
-}
 
 function playSound() {
-    if (!audioContext) {
-        initAudioContext();
-    }
-
-    let source = audioContext.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(audioContext.destination);
-    source.start();
+    const utterance = new SpeechSynthesisUtterance("はたらけ");
+    window.speechSynthesis.speak(utterance);
 }
 
 function copyToClipboard() {
