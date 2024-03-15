@@ -1,8 +1,16 @@
 
-function playSound() {
-    const utterance = new SpeechSynthesisUtterance("はたらけ");
-    window.speechSynthesis.speak(utterance);
+let audioPlayer;
+function initAudioPlayer() {
+    audioPlayer = new Audio('audio/work.mp3');
 }
+function playSound() {
+    if (!audioPlayer) {
+        initAudioPlayer();
+    }
+
+    audioPlayer.play();
+}
+
 
 function copyToClipboard() {
     var copyText = document.getElementById("card-id");
