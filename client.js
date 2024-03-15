@@ -14,9 +14,10 @@ function startTimeout() {
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
-
+    console.log('Timeout started');
     // Start a new timeout
     timeoutId = setTimeout(() => {
+        console.log('Timeout reached');
         const form = document.getElementById('messageForm');
         form.classList.add('disabled');
         form.style.pointerEvents = 'none';
