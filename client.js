@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const myId = socket.id;
         const ids=message.split(',');
         var dropdown = document.getElementById("dropdown");
+        dropdown.innerHTML = "";
         ids.forEach(function(id) {
             var option = document.createElement("option");
             option.value = id;
