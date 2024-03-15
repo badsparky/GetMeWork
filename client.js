@@ -7,8 +7,24 @@ function copyToClipboard() {
     navigator.clipboard.writeText(copyText.textContent);
     alert("Copied the text: " + copyText.textContent);
 }
+let timeoutId;
+
+function startTimeout() {
+    // Clear the previous timeout
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    // Start a new timeout
+    timeoutId = setTimeout(() => {
+        const form = document.getElementById('messageForm');
+        form.classList.add('disabled');
+        form.style.pointerEvents = 'none';
+    }, 30000); // 30 seconds
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+    startTimeout(); // Start the timeout
     // Connect to the Socket.IO server
     const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
     // const socket = io('http://localhost:8080', {
@@ -50,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const message = input.value;
         socket.emit('sendMessage',{message:message,to:destination.value}); // Emit the message to the server
         input.value = ''; // Clear the input field
+        startTimeout(); // Start the timeout
         return false;
     });
     
@@ -64,10 +81,4 @@ document.addEventListener('DOMContentLoaded', () => {
         messagesList.appendChild(messageElement); // Add the message to the list of messages
     });
 
-    setTimeout(() => {
-        const form = document.getElementById('messageForm');
-        form.classList.add('disabled');
-        form.style.pointerEvents = 'none';
-        window.location.href = './waiting.html';
-    }, 30000); // 30 seconds
 });
