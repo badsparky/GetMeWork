@@ -56,6 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('connect_timeout', () => {
         alert('Connection timed out');
     });
+    socket.on('receiveMessage', function(message) {
+        playSound();
+        const messagesList = document.getElementById('messages');
+        const messageElement = document.createElement('li');
+        messageElement.className = "list-group-item";
+        messageElement.textContent =
+        "[" + message.from.substr(3,4)+"] "  + message.message;
+        messagesList.appendChild(messageElement); // Add the message to the list of messages
+        startTimeout(); // Start the timeout
+    });
 
     // Send a message when the form is submitted
     const form = document.getElementById('messageForm');
@@ -69,17 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimeout(); // Start the timeout
         return false;
     });
+    const dropdown = document.getElementById('dropdown');
+    dropdown.addEventListener('change', startTimeout);
     
     // Listen for messages from the server
-    socket.on('receiveMessage', function(message) {
-        playSound();
-        const messagesList = document.getElementById('messages');
-        const messageElement = document.createElement('li');
-        messageElement.className = "list-group-item";
-        messageElement.textContent =
-        "[" + message.from.substr(3,4)+"] "  + message.message;
-        messagesList.appendChild(messageElement); // Add the message to the list of messages
-        startTimeout(); // Start the timeout
-    });
 
 });
