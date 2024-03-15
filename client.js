@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ids.forEach(function(id) {
             var option = document.createElement("option");
             option.value = id;
-            option.text = "[" + socket.id.substr(3,4)+"] " + id;
+            option.text = "[" + id.substr(3,4)+"] " + id;
             if (id === myId) {
                 option.text += " (Me)";
             }
@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messageElement.textContent =
         "[" + message.from.substr(3,4)+"] "  + message.message;
         messagesList.appendChild(messageElement); // Add the message to the list of messages
+        startTimeout(); // Start the timeout
     });
 
 });
