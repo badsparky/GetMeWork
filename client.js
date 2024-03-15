@@ -10,12 +10,13 @@ function copyToClipboard() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Connect to the Socket.IO server
-    const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
-    // const socket = io('http://localhost:8080', {
+    // const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
+    const socket = io('http://localhost:8080', {
         withCredentials: true,
         extraHeaders: {
             "content-type": "abcd"
-        }
+        },
+        timeout: 5000
     });
     socket.on('connect', () => {
         const idCard = document.getElementById('card-id');
@@ -34,6 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             dropdown.add(option);
         });
+    });
+    socket.on('connect_timeout', () => {
+        alert('Connection timed out');
     });
 
     // Send a message when the form is submitted
