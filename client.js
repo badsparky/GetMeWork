@@ -10,8 +10,8 @@ function copyToClipboard() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Connect to the Socket.IO server
-    const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
-    // const socket = io('http://localhost:8080', {
+    // const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
+    const socket = io('http://localhost:8080', {
         withCredentials: true,
         extraHeaders: {
             "content-type": "abcd"
@@ -63,4 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         "[" + message.from.substr(3,4)+"] "  + message.message;
         messagesList.appendChild(messageElement); // Add the message to the list of messages
     });
+
+    setTimeout(() => {
+        const form = document.getElementById('messageForm');
+        form.classList.add('disabled');
+        form.style.pointerEvents = 'none';
+        window.location.href = './waiting.html';
+    }, 30000); // 30 seconds
 });
