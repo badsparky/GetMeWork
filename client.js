@@ -10,8 +10,8 @@ function copyToClipboard() {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Connect to the Socket.IO server
-    // IMPORTANT: Replace 'http://localhost:3000' with your actual server URL if different
-    const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {
+    // const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {   
+    const socket = io('http://localhost:8080', {
         withCredentials: true,
         extraHeaders: {
             "content-type": "abcd"
@@ -19,17 +19,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     socket.on('connect', () => {
         const idCard = document.getElementById('card-id');
-        idCard.textContent = socket.id;
+        idCard.textContent ="[" + socket.id.substr(3,4)+"] "+ socket.id;
+    });
+    socket.on('connect-approved', (message) => {
+        const myId = socket.id;
+        const ids=message.split(',');
+        var dropdown = document.getElementById("dropdown");
+        ids.forEach(function(id) {
+            var option = document.createElement("option");
+            option.value = id;
+            option.text = "[" + socket.id.substr(3,4)+"] " + id;
+            if (id === myId) {
+                option.text += " (Me)";
+            }
+            dropdown.add(option);
+        });
     });
 
     // Send a message when the form is submitted
     const form = document.getElementById('messageForm');
     form.addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent the form from submitting in the traditional way
-        const destination = document.getElementById('destinationInput');
+        const destination = document.getElementById('dropdown');
         const input = document.getElementById('messageInput');
         const message = input.value;
-        socket.emit('sendMessage',{message:message,destination:destination.value}); // Emit the message to the server
+        socket.emit('sendMessage',{message:message,to:destination.value}); // Emit the message to the server
         input.value = ''; // Clear the input field
         return false;
     });
@@ -39,7 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         playSound();
         const messagesList = document.getElementById('messages');
         const messageElement = document.createElement('li');
-        messageElement.textContent = message;
+        messageElement.className = "list-group-item";
+        messageElement.textContent =
+        "[" + message.from.substr(3,4)+"] "  + message.message;
         messagesList.appendChild(messageElement); // Add the message to the list of messages
     });
 });

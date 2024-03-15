@@ -16,6 +16,7 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log('A user connected, socket id:', socket.id);
     // Your Socket.IO logic here
+    io.emit('connect-approved', Array.from(io.sockets.adapter.rooms.keys()).join(',')); // Broadcast to all clients the total number of clients connected
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
@@ -23,10 +24,10 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', (data) => {
         // Normally, you'd decode your message here based on your protocol
         const message = data.message; // Placeholder for decoding logic
-        const destination = data.destination; // Placeholder for decoding logic
+        const to = data.to; // Placeholder for decoding logic
         console.log('Received message:', message);
-        console.log('Destination:', destination);
-        io.to(destination).emit('receiveMessage', message); // Broadcast message to all clients
+        console.log('to:', to);
+        io.to(to).emit('receiveMessage', {message:message,from:socket.id}); // Broadcast message to all clients
     });
 });
 // io.on('connection', (socket) => {
