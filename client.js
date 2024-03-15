@@ -21,6 +21,7 @@ function startTimeout() {
         const form = document.getElementById('messageForm');
         form.classList.add('disabled');
         form.style.pointerEvents = 'none';
+        window.location.href = './waiting.html';
     }, 30000); // 30 seconds
 }
 
