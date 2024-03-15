@@ -1,6 +1,18 @@
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let audioBuffer;
+
+fetch('audio/work.mp3')
+    .then(response => response.arrayBuffer())
+    .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+    .then(decodedAudioData => {
+        audioBuffer = decodedAudioData;
+    });
+
 function playSound() {
-    var audio = document.getElementById("audioPlayer");
-    audio.play();
+    let source = audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioContext.destination);
+    source.start();
 }
 function copyToClipboard() {
     var copyText = document.getElementById("card-id");
@@ -84,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.getElementById('dropdown');
     dropdown.addEventListener('change', startTimeout);
     
+
     // Listen for messages from the server
 
 });
