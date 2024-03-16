@@ -7,10 +7,8 @@ function playSound() {
     if (!audioPlayer) {
         initAudioPlayer();
     }
-
     audioPlayer.play();
 }
-
 
 function copyToClipboard() {
     var copyText = document.getElementById("card-id");
@@ -32,7 +30,7 @@ function startTimeout() {
         form.classList.add('disabled');
         form.style.pointerEvents = 'none';
         window.location.href = './waiting.html';
-    }, 30000); // 30 seconds
+    }, 50000); // 30 seconds
 }
 
 document.addEventListener('DOMContentLoaded', () => {

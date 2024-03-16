@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Waiting Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
@@ -19,7 +20,18 @@
         .btn {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 2vw; /* Use viewport width units for padding */
+            font-size: 2vw; /* Use viewport width units for font size */
+            min-width: 150px; /* Set minimum width */
+            min-height: 50px; /* Set minimum height */
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                font-size: 16px; /* Set a larger font size for smaller screens */
+            }
         }
     </style>
 </head>
@@ -27,6 +39,6 @@
     <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
     </div>
-    <button onclick="window.location.href='index.html'" class="btn btn-primary">Go Back</button>
+    <button onclick="window.location.href='index.html'" class="btn btn-primary btn-lg">Go Back</button>
 </body>
 </html>
