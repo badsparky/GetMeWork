@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!userAgent.includes('android') && !userAgent.includes('windows')) {
         window.location.href = 'sorry.html';
+        console.log('Unsupported device',userAgent)
     } else {
         startTimeout(); // Start the timeout
         // Connect to the Socket.IO server
