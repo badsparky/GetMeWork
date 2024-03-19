@@ -36,10 +36,10 @@ function startTimeout() {
 document.addEventListener('DOMContentLoaded', () => {
     const userAgent = navigator.userAgent.toLowerCase();
 
-    if (!userAgent.includes('android') && !userAgent.includes('windows')) {
-        console.log('Unsupported device',userAgent)
+    if (!userAgent.includes('android') && !userAgent.includes('win')) {
+        console.log('Unsupported device', userAgent)
         window.location.href = 'sorry.html';
-    } else {
+    }else {
         startTimeout(); // Start the timeout
         // Connect to the Socket.IO server
         const socket = io('https://getmework-2y4gxp7gca-an.a.run.app', {
