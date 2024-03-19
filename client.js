@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             extraHeaders: {
                 "content-type": "abcd"
             },
-            timeout: 5000
+            timeout: 100000
         });
         socket.on('connect', () => {
             const idCard = document.getElementById('card-id');
