@@ -36,7 +36,7 @@ function startTimeout() {
 document.addEventListener('DOMContentLoaded', () => {
     const userAgent = navigator.userAgent.toLowerCase();
 
-    if (!userAgent.includes('android') && !userAgent.includes('windows')) {
+    if (!userAgent.includes('android') || !userAgent.includes('windows')) {
         window.location.href = 'sorry.html';
     } else {
         startTimeout(); // Start the timeout
