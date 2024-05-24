@@ -1,46 +1,30 @@
-# お仕事ちゃんとやろうぜ！アプリ
+# Let's Get to Work! App
 
-「お仕事ちゃんとやろうぜ！」アプリは、遠隔操作で他の人のデバイスに音を鳴らすことができる、ちょっとしたお遊びアプリだよ。友達や同僚に「さあ、仕事しようぜ！」という気持ちを伝えるのに使ってみてね。このアプリはリアルタイムで双方向のイベントベースの通信を行うSocket.IOを使っていて、Google Cloud Runにデプロイされているんだ。
+The "Let's Get to Work!" app is a fun little application that allows you to remotely play a sound on someone else's device. Use it to convey to your friends or colleagues the feeling of "Let's get to work!". This app uses Socket.IO for real-time, bidirectional, event-based communication and is deployed on Google Cloud Run.
 
-## アプリの構造
+## App Structure
 
-このアプリは大きく分けて2つのパートから成り立っているよ：
+This app is largely divided into two parts:
 
-1. **クライアント側**：クライアント側のコードは`client.js`にあるよ。ユーザーの操作を処理したり、音を鳴らしたり、Socket.IOを使ってサーバーと通信したりするんだ。
+1. **Client-side**: The client-side code is in `client.js`. It processes user operations, plays sounds, and communicates with the server using Socket.IO.
 
-2. **サーバー側**：サーバー側のコードは`server.js`にあるよ。Expressサーバーの設定とSocket.IOの接続とメッセージの処理を行っているんだ。
+2. **Server-side**: The server-side code is in `server.js`. It handles the configuration of the Express server and the connection and message processing of Socket.IO.
 
-そして、ユーザーインターフェースのためのHTMLファイル（`index.html`、`sorry.html`、`waiting.html`）もいくつか含まれているよ。
+In addition, it includes several HTML files (`index.html`, `sorry.html`, `waiting.html`) for the user interface.
 
-## Google Cloud Runへのデプロイ
+## Deploying to Google Cloud Run
 
-このアプリをGoogle Cloud Runにデプロイするには、次の手順を実行してね：
+To deploy this app to Google Cloud Run, follow these steps:
 
-1. [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)をインストールする。
+1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install).
 
-2. Google Cloudに認証する： 
+2. Authenticate with Google Cloud: 
     ```sh
     gcloud auth login
     ```
 
-3. プロジェクトディレクトリに移動してDockerイメージをビルドする： 
+3. Move to the project directory and build the Docker image: 
     ```sh
     gcloud builds submit --tag gcr.io/PROJECT-ID/getmework
     ```
-    `PROJECT-ID`はあなたのGCPプロジェクトIDに置き換えてね。
-
-4. イメージをCloud Runにデプロイする： 
-    ```sh
-    gcloud run deploy --image gcr.io/PROJECT-ID/getmework --platform managed
-    ```
-    `PROJECT-ID`はあなたのGCPプロジェクトIDに置き換えてね。
-
-デプロイが完了すると、アプリにアクセスできるURLが表示されるよ。
-
-## ローカルでの実行
-
-アプリをローカルで実行するには、Node.jsがインストールされている必要があるよ。それができたら、依存関係をインストールしてサーバーを起動するだけだよ：
-
-```sh
-npm install
-npm start
+    Replace `PROJECT-ID` with your GCP project ID.
