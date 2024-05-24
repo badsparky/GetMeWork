@@ -1,0 +1,46 @@
+# お仕事ちゃんとやろうぜ！アプリ
+
+「お仕事ちゃんとやろうぜ！」アプリは、遠隔操作で他の人のデバイスに音を鳴らすことができる、ちょっとしたお遊びアプリだよ。友達や同僚に「さあ、仕事しようぜ！」という気持ちを伝えるのに使ってみてね。このアプリはリアルタイムで双方向のイベントベースの通信を行うSocket.IOを使っていて、Google Cloud Runにデプロイされているんだ。
+
+## アプリの構造
+
+このアプリは大きく分けて2つのパートから成り立っているよ：
+
+1. **クライアント側**：クライアント側のコードは`client.js`にあるよ。ユーザーの操作を処理したり、音を鳴らしたり、Socket.IOを使ってサーバーと通信したりするんだ。
+
+2. **サーバー側**：サーバー側のコードは`server.js`にあるよ。Expressサーバーの設定とSocket.IOの接続とメッセージの処理を行っているんだ。
+
+そして、ユーザーインターフェースのためのHTMLファイル（`index.html`、`sorry.html`、`waiting.html`）もいくつか含まれているよ。
+
+## Google Cloud Runへのデプロイ
+
+このアプリをGoogle Cloud Runにデプロイするには、次の手順を実行してね：
+
+1. [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)をインストールする。
+
+2. Google Cloudに認証する： 
+    ```sh
+    gcloud auth login
+    ```
+
+3. プロジェクトディレクトリに移動してDockerイメージをビルドする： 
+    ```sh
+    gcloud builds submit --tag gcr.io/PROJECT-ID/getmework
+    ```
+    `PROJECT-ID`はあなたのGCPプロジェクトIDに置き換えてね。
+
+4. イメージをCloud Runにデプロイする： 
+    ```sh
+    gcloud run deploy --image gcr.io/PROJECT-ID/getmework --platform managed
+    ```
+    `PROJECT-ID`はあなたのGCPプロジェクトIDに置き換えてね。
+
+デプロイが完了すると、アプリにアクセスできるURLが表示されるよ。
+
+## ローカルでの実行
+
+アプリをローカルで実行するには、Node.jsがインストールされている必要があるよ。それができたら、依存関係をインストールしてサーバーを起動するだけだよ：
+
+```sh
+npm install
+npm start
